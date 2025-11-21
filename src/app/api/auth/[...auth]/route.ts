@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { authenticateUser, generateToken, MOCK_USERS } from '@/lib/auth/jwt-auth';
+import { authenticateUser, generateToken } from '@/lib/auth/jwt-auth';
 import { cookies } from 'next/headers';
 
 export async function POST(request: NextRequest) {
@@ -28,12 +28,13 @@ export async function POST(request: NextRequest) {
     const token = generateToken(user);
 
     // Set HTTP-only cookie
-    cookies().set('amt-token', token, {
+    const cookieStore = await cookies();
+    cookieStore.set('amt-token', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
       maxAge: 60 * 60 * 24 * 7, // 7 days
-      path: '/',
+      path: '/'
     });
 
     // Return user data (without sensitive info)
@@ -45,8 +46,8 @@ export async function POST(request: NextRequest) {
         name: user.name,
         role: user.role,
         tier: user.tier,
-        avatar: user.avatar,
-      },
+        avatar: user.avatar
+      }
     });
   } catch (error) {
     console.error('Authentication error:', error);
@@ -57,22 +58,20 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
-    const token = cookies().get('amt-token')?.value;
+    const cookieStore = await cookies();
+    const token = cookieStore.get('amt-token')?.value;
 
     if (!token) {
-      return NextResponse.json(
-        { error: 'Not authenticated' },
-        { status: 401 }
-      );
+      return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
     }
 
     // In production, verify token and return user data
     // For now, return mock success
     return NextResponse.json({
       success: true,
-      authenticated: true,
+      authenticated: true
     });
   } catch (error) {
     console.error('Session check error:', error);
@@ -83,14 +82,15 @@ export async function GET(request: NextRequest) {
   }
 }
 
-export async function DELETE(request: NextRequest) {
+export async function DELETE() {
   try {
     // Clear authentication cookie
-    cookies().delete('amt-token');
+    const cookieStore = await cookies();
+    cookieStore.delete('amt-token');
 
     return NextResponse.json({
       success: true,
-      message: 'Logged out successfully',
+      message: 'Logged out successfully'
     });
   } catch (error) {
     console.error('Logout error:', error);

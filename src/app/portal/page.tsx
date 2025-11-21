@@ -6,18 +6,18 @@ import { RecentActivity } from '@/components/portal/recent-activity';
 
 export const metadata = {
   title: 'Home',
-  description: 'AMT Portal Home - Your command center for all 12 modules',
+  description: 'AMT Portal Home - Your command center for all 12 modules'
 };
 
 export default function PortalHomePage() {
   return (
-    <div className="flex flex-col gap-8 p-8">
+    <div className='flex flex-col gap-8 p-8'>
       {/* M.E.L. Command Interface - ONA-style */}
-      <section className="space-y-4">
-        <h1 className="text-3xl font-bold bg-gradient-to-r from-amt-red to-amt-accent bg-clip-text text-transparent">
+      <section className='space-y-4'>
+        <h1 className='bg-gradient-to-r from-amt-red to-amt-accent bg-clip-text text-3xl font-bold text-transparent'>
           What do you want to get done today?
         </h1>
-        
+
         <Suspense fallback={<MELCommandPromptSkeleton />}>
           <MELCommandPrompt />
         </Suspense>
@@ -25,8 +25,8 @@ export default function PortalHomePage() {
 
       {/* Quick Stats Overview */}
       <section>
-        <h2 className="text-xl font-semibold mb-4 text-foreground">
-          Today's Overview
+        <h2 className='mb-4 text-xl font-semibold text-foreground'>
+          Today&apos;s Overview
         </h2>
         <Suspense fallback={<QuickStatsSkeleton />}>
           <QuickStats />
@@ -35,7 +35,7 @@ export default function PortalHomePage() {
 
       {/* 12 AMT Modules Grid */}
       <section>
-        <h2 className="text-xl font-semibold mb-4 text-foreground">
+        <h2 className='mb-4 text-xl font-semibold text-foreground'>
           AMT Platform Modules
         </h2>
         <Suspense fallback={<ModuleGridSkeleton />}>
@@ -45,7 +45,7 @@ export default function PortalHomePage() {
 
       {/* Recent Activity */}
       <section>
-        <h2 className="text-xl font-semibold mb-4 text-foreground">
+        <h2 className='mb-4 text-xl font-semibold text-foreground'>
           Recent Activity
         </h2>
         <Suspense fallback={<RecentActivitySkeleton />}>
@@ -58,16 +58,14 @@ export default function PortalHomePage() {
 
 // Loading Skeletons
 function MELCommandPromptSkeleton() {
-  return (
-    <div className="w-full h-14 bg-muted/50 rounded-lg animate-pulse" />
-  );
+  return <div className='h-14 w-full animate-pulse rounded-lg bg-muted/50' />;
 }
 
 function QuickStatsSkeleton() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4'>
       {Array.from({ length: 4 }).map((_, i) => (
-        <div key={i} className="h-32 bg-muted/50 rounded-lg animate-pulse" />
+        <div key={i} className='h-32 animate-pulse rounded-lg bg-muted/50' />
       ))}
     </div>
   );
@@ -75,9 +73,9 @@ function QuickStatsSkeleton() {
 
 function ModuleGridSkeleton() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    <div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
       {Array.from({ length: 12 }).map((_, i) => (
-        <div key={i} className="h-48 bg-muted/50 rounded-lg animate-pulse" />
+        <div key={i} className='h-48 animate-pulse rounded-lg bg-muted/50' />
       ))}
     </div>
   );
@@ -85,9 +83,9 @@ function ModuleGridSkeleton() {
 
 function RecentActivitySkeleton() {
   return (
-    <div className="space-y-3">
+    <div className='space-y-3'>
       {Array.from({ length: 5 }).map((_, i) => (
-        <div key={i} className="h-16 bg-muted/50 rounded-lg animate-pulse" />
+        <div key={i} className='h-16 animate-pulse rounded-lg bg-muted/50' />
       ))}
     </div>
   );

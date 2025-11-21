@@ -47,3 +47,13 @@ export const fontVariables = cn(
   fontMullish.variable,
   fontInter.variable
 );
+
+export {
+  fontSans,
+  fontMono,
+  fontInstrument,
+  fontNotoMono,
+  fontMullish,
+  fontInter
+};
+export const fontGeist = fontSans;
